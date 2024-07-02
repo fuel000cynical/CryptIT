@@ -21,7 +21,7 @@ body {
   
   
   .center {
-    text-align: center; 
+    text-align: center;
   }
   
   .container {
@@ -30,7 +30,13 @@ body {
     align-items: center;
     max-width: 800px;
     margin: 0 auto;
-    margin-left: -50px;
+  }
+
+  .container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
   
   .container button {
@@ -40,23 +46,12 @@ body {
   
   .header1 {
     font-size: 6.5em;
-    margin-top: -180px;
-    margin-right: -30px;
     text-shadow: 5px 3px 0px #549DC6;
   }
-  .header2 {
-    font-size: 6.5em;
-    margin-bottom: 70px;
-    margin-right: -45px;
-    color: #549DC6;
-    opacity: -0px;
-  }
-
   
   p {
     font-size: 3em;
     margin-top: -20px;
-    margin-left: 50px;
   }
   
 
@@ -81,9 +76,6 @@ body {
     padding: 20px 30px;
     cursor: pointer;
     font-size: 1.5em;
-    margin: 10px;
-    margin-top: 450px;
-    margin-left: -100px;
     position: relative;
   }
 
@@ -95,9 +87,6 @@ body {
     padding: 20px 30px;
     cursor: pointer;
     font-size: 1.5em;
-    margin: 10px;
-    margin-top: 450px;
-    margin-left: -1800px;
     position: relative;
   }
 

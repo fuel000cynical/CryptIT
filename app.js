@@ -7,6 +7,7 @@ var session = require('express-session');
 const user = require('./user');
 const sol = require('./solution.js');
 const uuidv4 = require('uuid').v4;
+const rateLimit = require('express-rate-limit');
 //****End of imports****
 
 app.set('trust proxy', 1) // trust first proxy
@@ -17,6 +18,13 @@ app.use(session({
   cookie: { secure: false, maxAge: 10000000 }
 }))
 
+const limiter = rateLimit({
+    windowMs: 5 * 1000, // 15 minutes
+    max: 200, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 5 seconds.'
+});
+
+app.use(limiter);
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -95,6 +103,7 @@ app.post('/sign-up', async (req, res) => {
     if (req.session.user) {
         res.redirect('/dashboard');
     }else{
+        const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
         const doc = {
             name : req.body.name,
             email : req.body.email,
@@ -102,7 +111,8 @@ app.post('/sign-up', async (req, res) => {
             password: req.body.password,
             score: 0,
             log: [],
-            mid: uuidv4()
+            mid: uuidv4(),
+            timeStamp: date
         };
         try {
             await client.connect();
@@ -140,7 +150,7 @@ app.get('/problems', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score']})
+            res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score'], wrongAns: false})
          } catch(e) {
             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
             console.log(e);
@@ -163,28 +173,33 @@ app.post('/problems', async (req, res) => {
                 if(ch[0] == solC[0]['solution'][0] && ch[1] == solC[0]['solution'][1]){
                     doc.score += 10;
                     a.push(ch);
+                    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+                    doc.timeStamp = date;
+                    res.redirect('/problems')
                 }else{
                     a.push(ch);
+                    res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score'], wrongAns: true})
                 }
             }else if(findRes[0]['score']/10 == 6){
                 a.push(req.body.ans);
+                res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score'], wrongAns: true})
             }else if(findRes[0]['score']/10 == 16){
                 a.push(req.body.ans);
+                res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score'], wrongAns: true})
             }else{
                 if(req.body.ans == solC[0]['solution']){
                     doc.score += 10;
                     a.push(req.body.ans);
+                    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+                    doc.timeStamp = date;
+                    res.redirect('/problems')
                 }else{
                     a.push(req.body.ans);
+                    res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score'], wrongAns: true})
                 }
             }
 
-            const date = new Date();
-            doc.timeStamp = date;
-
             await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
-
-            res.redirect('/problems')
          } catch(e) {
             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
             console.log(e);
@@ -199,7 +214,7 @@ app.get('/leaderboard', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            const allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1}).toArray();
+            const allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1, timeStamp: 1}).toArray();
             allUsers.forEach(doc => {
                 doc.mid = null
                 doc.discordId = null
@@ -222,17 +237,13 @@ app.get('/19990331', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            const solC = await client.db("mainCluster").collection("solution").find({level: findRes[0]['score']/10 }).toArray();
             var doc = findRes[0];
-            var a = doc.log;
             if(findRes[0]['score']/10 == 6){
                 doc.score = 70;
+                const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+                doc.timeStamp = date;
+                await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
             }
-
-            const date = new Date();
-            doc.timeStamp = date;
-
-            await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
 
             res.redirect('/problems')
          } catch(e) {
@@ -252,12 +263,10 @@ app.get('/levelseventeen', async (req, res) => {
             var doc = findRes[0];
             if(findRes[0]['score']/10 == 16){
                 doc.score+=10;
+                const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+                doc.timeStamp = date;
+                await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
             }
-
-            const date = new Date();
-            doc.timeStamp = date;
-
-            await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
 
             res.redirect('/problems')
          } catch(e) {
