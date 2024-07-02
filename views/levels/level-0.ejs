@@ -54,7 +54,7 @@
     <div class="container">
         <main>
             <h2 class="level1">
-                <span id="lvl" class="hideme">Level <%= score/10 %></span>
+                <span id="lvl" class="hideme">Level 0</span>
             </h2>
             <div class="questionContainer">
                 <div id="question" class="questionText hideme">
@@ -64,13 +64,13 @@
                 </div>
             </div>
         </main>
-        <form class="answer-box" method="POST" action="/">
+        <form class="answer-box" method="POST" action="/problems">
             <div class="inputContainer">
                 <img class="whiteCorener1" src="/assets/corner.svg" alt="">
                 <img class="whiteCorener2" src="/assets/corner.svg" alt="">
                 <img class="whiteCorener3" src="/assets/corner.svg" alt="">
                 <img class="whiteCorener4" src="/assets/corner.svg" alt="">
-                <input id="answer-input" type="text" class="hideme" placeholder="Type Answer....">
+                <input id="answer-input" type="text" class="hideme" placeholder="Type Answer...." name="ans">
             </div>
             <button id="submit-btn" class="hideme">
                 Submit

@@ -5,6 +5,7 @@ const uri = "mongodb+srv://gsoham562:bNKQLjoCDbbLLhJA@maincluster.8pikchg.mongod
 const bodyParser = require('body-parser');
 var session = require('express-session');
 const user = require('./user');
+const sol = require('./solution.js');
 const uuidv4 = require('uuid').v4;
 //****End of imports****
 
@@ -13,7 +14,7 @@ app.use(session({
   secret: 'cbghsdvbcjksdncbgvd',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, maxAge: 60000 }
+  cookie: { secure: false, maxAge: 10000000 }
 }))
 
 
@@ -124,8 +125,6 @@ app.get('/dashboard', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            console.log(findRes);
-            console.log(findRes[0]['score']);
             res.render('dashboard', {name: findRes[0]['name'], email: findRes[0]['email'], discordId: findRes[0]['discordId'], score: findRes[0]['score']});
          } catch(e) {
             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
@@ -141,8 +140,51 @@ app.get('/problems', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            console.log(findRes);
             res.render(`levels/level-${findRes[0]['score']/10}`, {score: findRes[0]['score']})
+         } catch(e) {
+            console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
+            console.log(e);
+        }
+    }else{
+        res.redirect('/');
+    }
+})
+
+app.post('/problems', async (req, res) => {
+    if (req.session.user) {
+        try {
+            await client.connect();
+            const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
+            const solC = await client.db("mainCluster").collection("solution").find({level: findRes[0]['score']/10 }).toArray();
+            var doc = findRes[0];
+            var a = doc.log;
+            if(findRes[0]['score']/10 == 3){
+                var ch = [req.body.ans1, req.body.ans2];
+                if(ch[0] == solC[0]['solution'][0] && ch[1] == solC[0]['solution'][1]){
+                    doc.score += 10;
+                    a.push(ch);
+                }else{
+                    a.push(ch);
+                }
+            }else if(findRes[0]['score']/10 == 6){
+                a.push(req.body.ans);
+            }else if(findRes[0]['score']/10 == 16){
+                a.push(req.body.ans);
+            }else{
+                if(req.body.ans == solC[0]['solution']){
+                    doc.score += 10;
+                    a.push(req.body.ans);
+                }else{
+                    a.push(req.body.ans);
+                }
+            }
+
+            const date = new Date();
+            doc.timeStamp = date;
+
+            await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
+
+            res.redirect('/problems')
          } catch(e) {
             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
             console.log(e);
@@ -175,22 +217,57 @@ app.get('/leaderboard', async (req, res) => {
     }
 })
 
+app.get('/19990331', async (req, res) => {
+    if (req.session.user) {
+        try {
+            await client.connect();
+            const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
+            const solC = await client.db("mainCluster").collection("solution").find({level: findRes[0]['score']/10 }).toArray();
+            var doc = findRes[0];
+            var a = doc.log;
+            if(findRes[0]['score']/10 == 6){
+                doc.score = 70;
+            }
+
+            const date = new Date();
+            doc.timeStamp = date;
+
+            await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
+
+            res.redirect('/problems')
+         } catch(e) {
+            console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
+            console.log(e);
+        }
+    }else{
+        res.redirect('/');
+    }
+})
+
+app.get('/levelseventeen', async (req, res) => {
+    if (req.session.user) {
+        try {
+            await client.connect();
+            const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
+            var doc = findRes[0];
+            if(findRes[0]['score']/10 == 16){
+                doc.score+=10;
+            }
+
+            const date = new Date();
+            doc.timeStamp = date;
+
+            await client.db("mainCluster").collection("user").replaceOne({mid: doc.mid}, doc);
+
+            res.redirect('/problems')
+         } catch(e) {
+            console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
+            console.log(e);
+        }
+    }else{
+        res.redirect('/');
+    }
+})
+
 //********* listening to port ********
 app.listen(8000);
-
-
-
-// if (req.session.user) {
-//         try {
-//             await client.connect();
-//             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-//             console.log(findRes);
-//             console.log(findRes[0]['score']);
-            
-//          } catch(e) {
-//             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
-//             console.log(e);
-//         }
-//     }else{
-//         res.redirect('/');
-//     }

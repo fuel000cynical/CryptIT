@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const uuidv4 = require('uuid').v4;
 
+const date = new Date();
 
 const userSchemma = new mongoose.Schema({
     mid:{
@@ -34,6 +35,11 @@ const userSchemma = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    timeStamp:{
+        type:Date,
+        required:true,
+        default: date
     }
 }, {_id: false});
 

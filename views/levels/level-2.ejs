@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level-2</title>
-    <link rel="stylesheet" href="play.css">
+    <link rel="stylesheet" href="/assets/play.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -45,7 +45,7 @@
 
 <body>
     <header>
-        <a href="/dashboard"><img src="image.png" style="width: 300px;"></a>
+        <a href="/dashboard"><img src="/assets/image.png" style="width: 300px;"></a>
         <nav>
             <a href="/problems">Play</a>
             <a href="/leaderboard">Leaderboard</a>
@@ -54,7 +54,7 @@
     <div class="container">
         <main>
             <h2 class="level1">
-                <span id="lvl" class="hideme">Level 1</span>
+                <span id="lvl" class="hideme">Level 2</span>
                 
             </h2>
             <div class="questionContainer">
@@ -64,7 +64,7 @@
                 
             </div>
         </main>
-        <div class="answer-box">
+        <form class="answer-box" method="POST" action="/problems">
             <div class="inputContainer">
                 <img class="whiteCorener1" src="/assets/corner.svg" alt="">
                 <img class="whiteCorener2" src="/assets/corner.svg" alt="">
@@ -72,7 +72,7 @@
                 <img class="whiteCorener4" src="/assets/corner.svg" alt="">
                 
                 
-                <input id="answer-input" type="text" class="hideme" placeholder="Type Answer....">
+                <input id="answer-input" type="text" class="hideme" placeholder="Type Answer...." name="ans">
             </div>
             <button id="submit-btn" class="hideme">
                 Submit
@@ -82,7 +82,7 @@
                 <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
             </button>
             <p id="feedback"></p>
-        </div>
+        </form>
     </div>
     <div class="spinner" id="loading-spinner"></div>
 
