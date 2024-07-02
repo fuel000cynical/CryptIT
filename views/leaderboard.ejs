@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Crypt.IT</title>
+    <link rel="stylesheet" href="/assets/leaderboardStyle.css">
+    <style>
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="spinner" id="loading-spinner"></div>
+
+    <header>
+        <a href="/dashboard"><img src="/assets/image.png" style="width: 300px;"></a>
+        <nav>
+            <a href="/problems">Play</a>
+            <a href="/leaderboard">Leaderboard</a>
+        </nav>
+    </header>
+    <main>
+        <h2 class="level">Leaderboard</h2>
+        <h2 class="level1">Leaderboard</h2>
+    </main>
+    <div class="container">
+        <ul class="list" id="leaderboard-list">
+            <% var rank = 1 %>
+            <% allUsers.forEach(doc => { %>
+            <li class="list-item">
+                <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+                <div class="item-left">
+                    <div class="rank"><%= rank %></div>
+                    <div class="name"><%= doc.name %></div>
+                </div>
+                <div class="item-right">
+                    <div class="number"><%= doc.score %></div>
+                </div>
+            </li>
+            <% rank+=1 %>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Crypt.IT 2024</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="/assets/screen2.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <style>
+      .submit-avatar-btn {
+        background-color: #0f0f0f;
+        color: #549dc6;
+        border: 1px solid #549dc6;
+        padding: 0.5em 1em;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+
+      .spinner {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #549dc6;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin 2s linear infinite;
+        z-index: 1000;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="/dashboard"
+        ><img src="/assets/image.png" style="width: 300px"
+      /></a>
+      <nav>
+        <a href="/problems">Play</a>
+        <a href="/leaderboard">Leaderboard</a>
+        <div class="tooltip">
+          <button
+            id="logout-btn"
+            class="bi bi-box-arrow-right"
+            style="
+              background: none;
+              border: none;
+              cursor: pointer;
+              font-size: 24px;
+              color: #549dc6;
+            "
+          ></button>
+          <span class="tooltiptext">Sign out</span>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="dates">
+        <p class="date2">11:59 pm 1 July to 11:59 pm 2 July</p>
+      </div>
+      <div class="main-content">
+        <div class="avatar-section">
+          <div class="name-container">
+            <img class="whiteCorener1" src="/assets/corner.svg" alt="" />
+            <img class="whiteCorener2" src="/assets/corner.svg" alt="" />
+            <img class="whiteCorener3" src="/assets/corner.svg" alt="" />
+            <img class="whiteCorener4" src="/assets/corner.svg" alt="" />
+            <div id="user-name" style="font-size: 20px; text-align: left">
+              <%= name %>
+            </div>
+            <div id="user-email" style="font-size: 20px; text-align: left">
+              <%= email %>
+            </div>
+            <div
+              id="user-discord-id"
+              style="font-size: 20px; text-align: left; color: #549dc6"
+            >
+              <%= discordId %>
+            </div>
+          </div>
+          <div class="level">
+            <p class="level1">Level</p>
+            <p class="level2" id="user-level"><%= score/10 %>/20</p>
+          </div>
+          <div class="levelRanks">
+            <p class="level3">Ranking</p>
+            <p class="level5" id="user-rank">00/18</p>
+          </div>
+        </div>
+        <div class="form-container">
+          <iframe
+            src="https://www.youtube.com/embed/pIC4anJIRFg?si=qukgXsJ0IdODI2Lg&amp;controls=0"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <div class="dropdown-container">
+            <div class="dropdown">
+              <button class="dropbtn">
+                <img src="/assets/dropdown.svg" class="dropdownIcon" alt="" />
+                About The Event
+              </button>
+              <div class="dropdown-content">
+                <p>
+                  Crypt.IT is a cryptic hunt event being held during Byte.IT'24,
+                  the annual tech fest of Bal Bharati Public School, Pitampura.
+                  A 24-hour cryptic hunt requiring you to solve several puzzles
+                  in succession, wherein you have to decipher and connect the
+                  given clues and hunt for an answer with the internet at your
+                  disposal.
+                </p>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn">
+                <img src="/assets/dropdown.svg" class="dropdownIcon" alt="" />
+                Rules
+              </button>
+              <div class="dropdown-content">
+                <p>
+                  <li>Make sure you have registered on the platform.</li>
+                  <li>
+                    All hints & lead confirmations will be done via offical
+                    Discord server only; link will be available above.
+                  </li>
+                  <li>
+                    Asking other players for hints is an offense and can lead to
+                    disqualification if found.
+                  </li>
+                  <li>
+                    Sharing answers or hints is strictly prohibited among users
+                    via any medium. Only organizers hold this right. If found
+                    will lead to direct disqualification.
+                  </li>
+                  <li>
+                    To report misconduct by any player, please DM the event
+                    coordinators.
+                  </li>
+                  <li>
+                    Reverse engineering the platform means direct ban from the
+                    competition. Bugs if found should be reported and not
+                    exploited. Exploiting a bug also leads to disqualification.
+                  </li>
+                  <li>
+                    Decision by organizers is final and should not be
+                    questioned.
+                  </li>
+                  <li>
+                    By playing the game, you adhere to agree to all the rules
+                    above. Now say anything and we will let you in.
+                  </li>
+                </p>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn">
+                <img src="/assets/dropdown.svg" class="dropdownIcon" alt="" />
+                Guidelines
+              </button>
+              <div class="dropdown-content">
+                <p>
+                  <li>
+                    All answers are lower case without any special characters
+                    like space, "?", "/", etc. Don't worry though, we normalize
+                    your inputs anyways! Answer may contain digits though (in
+                    that case write the word not the digits i.e. 5 = five)!
+                  </li>
+                  <li>
+                    File passwords are all lower case without any special
+                    characters. We do not normalize this. So be wary while you
+                    enter file passwords. Passwords may contain digits though!
+                  </li>
+                  <li>
+                    Stay aware for in platform hints or Discord hints. They
+                    could take you far in the game. Every clue in the question
+                    is important. If it wasn't important, it wouldn't be there.
+                  </li>
+                  <li>
+                    Beware of the spelling you enter, we do not autocorrect. You
+                    can always clear your doubts on the Discord server. Be sure
+                    not to discuss answers or question about answers in any way.
+                    And if it was not obvious, team play, answer sharing, hint
+                    sharing and collaborating with other competitors in general
+                    is not allowed and any such evidence can lead to
+                    disqualification.
+                  </li>
+                  <li>
+                    We have anti-cheats installed in our code that can easily
+                    catch cheaters and ban them directly.
+                  </li>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spinner" id="spinner"></div>
+  </body>
+  <script>
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(function (dropdown) {
+      const dropbtn = dropdown.querySelector(".dropbtn");
+      const dropdownContent = dropdown.querySelector(".dropdown-content");
+
+      dropbtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        dropdowns.forEach(function (d) {
+          if (d !== dropdown) {
+            d.querySelector(".dropdown-content").classList.remove("show");
+            d.querySelector(".dropbtn").classList.remove("active");
+          }
+        });
+
+        dropdownContent.classList.toggle("show");
+        dropbtn.classList.toggle("active");
+      });
+
+      window.addEventListener("click", function (e) {
+        dropdowns.forEach(function (d) {
+          if (
+            d.querySelector(".dropdown-content").classList.contains("show") &&
+            !d.contains(e.target)
+          ) {
+            d.querySelector(".dropdown-content").classList.remove("show");
+            d.querySelector(".dropbtn").classList.remove("active");
+          }
+        });
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypt.IT 2024</title>
+    <link rel="stylesheet" href="/assets/loginStyle.css">
+    <style>
+        .spinner {
+            display: none; 
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #549DC6;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .loading-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .sign-up-btn{
+            pointer-events: none;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header2">Crypt.IT 2024</h1>
+        <div class="dates">
+            <p class="date1">11:59 pm 1 July to 11:59 pm 2 July</p>
+        </div>
+        <div class="main-content">
+            <form class="form-container" method="POST" action="/login">
+                <div class="form" id="signup-form">
+                    <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener3" src="assets/corner.svg" alt="">
+                    <img class="whiteCorener4" src="assets/corner.svg" alt="">
+                    <div>
+                        <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                        <img class="whiteCorener2" src="assets/corner.svg" alt="">
+                        <img class="whiteCorener3" src="assets/corner.svg" alt="">
+                        <img class="whiteCorener4" src="assets/corner.svg" alt="">
+
+                        <input type="email" id="email" placeholder="Email" name="email">
+                    </div>
+                    <div>
+                        <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                        <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                        <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                        <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+
+                        <input type="password" id="password" placeholder="Password" name="password">
+                    </div>
+                </div>
+                <button id="sign-up-btn">
+                    Log in
+                    <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+                </button>
+                <p id="error-message" style="display:none; color:red;"></p>
+                <div class="spinner" id="spinner"></div>
+                <div class="loading-bg" id="loading-bg" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    </script>
+</body>
+</html>

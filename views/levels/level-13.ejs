@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level-13</title>
+    <link rel="stylesheet" href="play.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <style>
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #549DC6;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/dashboard"><img src="image.png" style="width: 300px;"></a>
+        <nav>
+            <a href="/problems">Play</a>
+            <a href="/leaderboard">Leaderboard</a>
+        </nav>
+    </header>
+    <div class="container">
+        <main>
+            <h2 class="level1">
+                <span id="lvl" class="hideme">Level 1</span>
+                
+            </h2>
+            <div class="questionContainer">
+                <div id="question" class="questionText hideme">
+                    <a style="color: inherit;" href="byteclub.co.in/cryptit/assets/lvl13.pdf">byteclub.co.in/cryptit/assets/lvl13.pdf</a>
+                </div>
+                
+            </div>
+        </main>
+        <div class="answer-box">
+            <div class="inputContainer">
+                <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+                
+                
+                <input id="answer-input" type="text" class="hideme" placeholder="Type Answer....">
+            </div>
+            <button id="submit-btn" class="hideme">
+                Submit
+                <img class="whiteCorener1" src="/assets/cornerBlue.svg" alt="">
+                <img class="whiteCorener2" src="/assets/cornerBlue.svg" alt="">
+                <img class="whiteCorener3" src="/assets/cornerBlue.svg" alt="">
+                <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
+            </button>
+            <p id="feedback"></p>
+        </div>
+    </div>
+    <div class="spinner" id="loading-spinner"></div>
+
+</body>
+
+</html>

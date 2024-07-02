@@ -1,0 +1,40 @@
+const mongoose = require('mongoose');
+const uuidv4 = require('uuid').v4;
+
+
+const userSchemma = new mongoose.Schema({
+    mid:{
+        type: String,
+        default: uuidv4()
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    discordId: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }, 
+    log:{
+        type: [String],
+        required: true,
+        default: []
+    },
+    score:{
+        type: Number,
+        required: true,
+        default: 0
+    }
+}, {_id: false});
+
+module.exports = mongoose.model('user', userSchemma);
