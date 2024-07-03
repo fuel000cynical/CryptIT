@@ -255,7 +255,7 @@ app.get('/19990331', async (req, res) => {
     }
 })
 
-app.get('/levelseventeen', async (req, res) => {
+app.get('/asrgbcftyjvfyjmb', async (req, res) => {
     if (req.session.user) {
         try {
             await client.connect();
