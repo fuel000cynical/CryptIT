@@ -280,7 +280,7 @@ app.get('/levelseventeen', async (req, res) => {
 
 app.get('/sign-out', (req, res) => {
     req.session.destroy();
-    res.redirect('/login')
+    res.redirect('/login')  
 })
 
 //********* listening to port ********
