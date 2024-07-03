@@ -214,7 +214,7 @@ app.get('/leaderboard', async (req, res) => {
         try {
             await client.connect();
             const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            const allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1, timeStamp: 1}).toArray();
+            const allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1}).toArray();
             allUsers.forEach(doc => {
                 doc.mid = null
                 doc.discordId = null
