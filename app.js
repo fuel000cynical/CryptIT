@@ -213,15 +213,39 @@ app.get('/leaderboard', async (req, res) => {
     if (req.session.user) {
         try {
             await client.connect();
-            const findRes = await client.db("mainCluster").collection("user").find({mid: String(req.session.user)}).toArray();
-            const allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1}).toArray();
+            var allUsers = await client.db("mainCluster").collection("user").find({}).sort({score: -1}).toArray();
             allUsers.forEach(doc => {
                 doc.mid = null
                 doc.discordId = null
                 doc.email = null
                 doc.password = null
                 doc.log = null
+
+                var splitDateTime = doc.timeStamp.split(',');
+                var mul = 1;
+                if(splitDateTime[0] == "7/4/2024"){
+                    mul = 2;
+                }
+                
+                if(splitDateTime[1].slice(-2) == "PM"){
+                    mul*=2;
+                }
+                
+                var [hours, minutes, seconds] = splitDateTime[1].slice(1, -4).split(':');
+                var totalSeconds = (+hours) * 60 * 60 + (+minutes) * 60 + (+seconds);
+                totalSeconds *= mul;
+
+                console.log(totalSeconds);
+                doc.timeStamp = totalSeconds;
             });
+
+            allUsers.sort((x, y) => {
+                if (x.score !== y.score) {
+                    return y.score - x.score;
+                }
+                return x.timeStamp - y.timeStamp;
+            });
+
             res.render('leaderboard', {allUsers});
          } catch(e) {
             console.log(`A MongoBulkWriteException occurred, but there are successfully processed documents.`);
