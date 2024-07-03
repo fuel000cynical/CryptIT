@@ -65,6 +65,7 @@
         <a href="/leaderboard">Leaderboard</a>
         <div class="tooltip">
           <button
+            onclick="location.href='/sign-out'"
             id="logout-btn"
             class="bi bi-box-arrow-right"
             style="
@@ -106,10 +107,6 @@
           <div class="level">
             <p class="level1">Level</p>
             <p class="level2" id="user-level"><%= score/10 %>/20</p>
-          </div>
-          <div class="levelRanks">
-            <p class="level3">Ranking</p>
-            <p class="level5" id="user-rank">00/20</p>
           </div>
         </div>
         <div class="form-container">
