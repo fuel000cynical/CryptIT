@@ -55,51 +55,53 @@
         <main>
             <h2 class="level1">
                 <span id="lvl" class="hideme">Level 3</span>
-                
+
             </h2>
             <div class="questionContainer">
                 <div id="question" class="questionText hideme">
                     Question 1 - "T20 World Cup 2024": <br><br>
                     Question 2 - "MjkganVuZSAyMDI0="
                 </div>
-                
+
             </div>
         </main>
-        <form method="POST" action="/problems">
-        <div class="answer-box hideme">
-            <div class="inputContainer">
-                <img class="whiteCorener1" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener2" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener3" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener4" src="/assets/corner.svg" alt="">
-                <input id="answer-input-1" type="text" class="" placeholder="Type Answer for Q-1"  name="ans1">
+        <div>
+            <div class="answer-box hideme">
+                <div class="inputContainer">
+                    <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+                    <input id="answer-input-1" type="text" class="" placeholder="Type Answer for Q-1" name="ans1">
+                </div>
+                <button class="submit-btn" style="opacity: 0 !important; pointer-events: none;">
+                    Submit
+                    <img class="whiteCorener1" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener3" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
+                </button>
             </div>
-            <button class="submit-btn" style="opacity: 0 !important; pointer-events: none;">
-                Submit
-                <img class="whiteCorener1" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener2" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener3" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
-            </button>
-        </div>
-        <div class="answer-box answer-box-2" style="margin-top: 0;">
-            <div class="inputContainer">
-                <img class="whiteCorener1" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener2" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener3" src="/assets/corner.svg" alt="">
-                <img class="whiteCorener4" src="/assets/corner.svg" alt="">
-                
-                <input id="answer-input-2" type="text" class="hideme" placeholder="Type Answer for Q-2" name="ans2">
+            <div class="answer-box answer-box-2" style="margin-top: 0;">
+                <div class="inputContainer">
+                    <img class="whiteCorener1" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener3" src="/assets/corner.svg" alt="">
+                    <img class="whiteCorener4" src="/assets/corner.svg" alt="">
+
+                    <input id="answer-input-2" type="text" class="hideme" placeholder="Type Answer for Q-2" name="ans2">
+                </div>
+                <button id="submit-btn" class="hideme submit-btn">
+                    Submit
+                    <img class="whiteCorener1" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener2" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener3" src="/assets/cornerBlue.svg" alt="">
+                    <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
+                </button>
+                <p id="feedback">
+                    <%if(wrongAns){%>Skill Issue !!<%}%>
+                </p>
             </div>
-            <button id="submit-btn" class="hideme submit-btn">
-                Submit
-                <img class="whiteCorener1" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener2" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener3" src="/assets/cornerBlue.svg" alt="">
-                <img class="whiteCorener4" src="/assets/cornerBlue.svg" alt="">
-            </button>
-            <p id="feedback"><%if(wrongAns){%>Skill Issue !!<%}%></p>
-        </div>
     </div>
     </div>
     <div class="spinner" id="loading-spinner"></div>
