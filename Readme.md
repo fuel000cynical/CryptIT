@@ -1,6 +1,8 @@
 # 🕵️‍♂️ CryptIT – Capture The Flag (CTF) Event Website
 
-Welcome to the official repository of **CryptIT**, a cybersecurity-themed Capture The Flag (CTF) event. This website was developed to serve as the central hub for the event, hosting information, challenges, and leaderboard functionalities.
+Welcome to the official repository of **CryptIT**, a cybersecurity-themed Capture The Flag (CTF) event hosted by [Byte Club](https://byteclub.co.in/) in 2024. This website was developed to serve as the central hub for the event, hosting information, challenges, and leaderboard functionalities.
+
+##### The trailer for the event: [youtube](https://youtu.be/pIC4anJIRFg?si=Zc4kmV1CsEpnYjPG)
 
 ![CryptIT Banner](https://raw.githubusercontent.com/fuel000cynical/CryptIT/refs/heads/main/assets/cryptPromotion.png)
 
