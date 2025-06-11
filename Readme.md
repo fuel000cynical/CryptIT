@@ -2,7 +2,7 @@
 
 Welcome to the official repository of **CryptIT**, a cybersecurity-themed Capture The Flag (CTF) event. This website was developed to serve as the central hub for the event, hosting information, challenges, and leaderboard functionalities.
 
-![CryptIT Banner](./assets/images/banner-placeholder.png)
+![CryptIT Banner](https://raw.githubusercontent.com/fuel000cynical/CryptIT/refs/heads/main/assets/cryptPromotion.png)
 
 ---
 
@@ -19,9 +19,9 @@ Welcome to the official repository of **CryptIT**, a cybersecurity-themed Captur
 
 ## 📸 Screenshots
 
-| Homepage | Challenges Page | Leaderboard |
+| Start Page | Sign-Up Page | Leaderboard |
 |---------|------------------|-------------|
-| ![](./assets/images/home-placeholder.png) | ![](./assets/images/challenges-placeholder.png) | ![](./assets/images/leaderboard-placeholder.png) |
+| ![](https://raw.githubusercontent.com/fuel000cynical/CryptIT/refs/heads/main/assets/IMG_9038.png) | ![](https://raw.githubusercontent.com/fuel000cynical/CryptIT/refs/heads/main/assets/IMG_8139.png) | ![](https://raw.githubusercontent.com/fuel000cynical/CryptIT/refs/heads/main/assets/IMG_1706.png) |
 
 ---
 
