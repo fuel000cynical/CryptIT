@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://gsoham562:bNKQLjoCDbbLLhJA@maincluster.8pikchg.mongodb.net/?appName=mainCluster";
+const uri = "REDACTED";
 const bodyParser = require('body-parser');
 var session = require('express-session');
 const user = require('./user');
